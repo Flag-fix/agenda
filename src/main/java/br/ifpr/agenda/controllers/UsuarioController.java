@@ -14,6 +14,8 @@ import br.ifpr.agenda.dominio.Contato;
 import br.ifpr.agenda.dominio.Usuario;
 import br.ifpr.agenda.repositories.UsuarioRepository;
 
+import java.util.List;
+
 @Controller
 public class UsuarioController {
 	
@@ -22,8 +24,15 @@ public class UsuarioController {
 	public UsuarioController (UsuarioRepository usuarioRepository) {
 		this.usuarioRepository = usuarioRepository;
 	}
-	
-	
+
+
+	@GetMapping()
+	public List<Usuario> get(){
+		List usuario = usuarioRepository.findAll();
+		return usuario;
+	}
+
+
 	@RequestMapping("/usuarios")
 	public String getUsuarios (Model model) {
 		model.addAttribute("usuarios", usuarioRepository.findAll());
