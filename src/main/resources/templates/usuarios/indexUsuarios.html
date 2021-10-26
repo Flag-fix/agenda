@@ -23,38 +23,37 @@
 				class="far fa-user"></i> Usuários</a>
 		</div>
 	</nav>
-
 	
 	<div class="container my-5">
 		<div class="card">
 			<div class="card-body">
 				<div class="col-md-15">
-					<h2>Lista de Contatos</h2>
+					<h2>Lista de Usuários</h2>
 					<div class="table-responsive">
 						<table class="table table-hover">
 							<thead class="thead-dark">
 								<tr>
-									<th scope="col">Nome</th>
+									<th scope="col">Login</th>
 									<th scope="col">E-mail</th>
-									<th scope="col"><a th:href="@{/contatos/novo}"
+									<th scope="col"><a th:href="@{/usuarios/novo}"
 										class="btn btn-outline-light"><i
 											class="fas fa-plus-circle"></i></a></th>
 								</tr>
 							</thead>
-							<tr th:each="contato : ${contatos}">
-								<td th:text="${contato.nome + ' ' + contato.sobrenome}"></td>
-								<td th:text="${contato.email}"></td>
+							<tr th:each="usuario : ${usuarios}">
+								<td th:text="${usuario.login}"></td>
+								<td th:text="${usuario.email}"></td>
 								<td><a
-									th:href="@{/contatos/alterar/{id}(id=${contato.id})}"
+									th:href="@{/usuarios/alterar/{id}(id=${usuario.id})}"
 									class="btn btn-outline-dark"><i
 										class="fas fa-user-edit ml-2"></i></a> <a data-toggle="modal"
 									data-target="#modal-warning"
-									th:attr="data-target='#modal-warning'+${contato.id }"
+									th:attr="data-target='#modal-warning'+${usuario.id }"
 									class="btn btn-danger"> <i class="fas fa-user-times ml-2"></i>
 								</a>
 
 									<div class="modal modal-warning fade in"
-										th:id="modal-warning+${contato.id }">
+										th:id="modal-warning+${usuario.id }">
 										<div class="modal-dialog">
 											<div class="modal-content">
 												<div class="modal-header">
@@ -62,16 +61,16 @@
 														aria-label="Close">
 														<span aria-hidden="true">×</span>
 													</button>
-													<h5 class="modal-title">Excluir Contato</h5>
+													<h5 class="modal-title">Excluir Usuário</h5>
 												</div>
 												<div class="modal-body">
-													<h3>Tem certeza de que deseja excluir esse contato?</h3>
+													<h3>Tem certeza de que deseja excluir esse usuário?</h3>
 												</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-outline pull-left"
 														data-dismiss="modal">Fechar</button>
 														
-													<form action="#" th:action="@{/contatos/excluir/{id}(id=${contato.id})}" method="post">	
+													<form action="#" th:action="@{/usuarios/excluir/{id}(id=${usuario.id})}" method="post">	
 														<input type="submit" class="btn btn-outline" value="Sim">
 													</form>
 												</div>
