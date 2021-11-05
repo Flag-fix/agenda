@@ -2,6 +2,7 @@ package br.ifpr.agenda.controllers;
 
 import javax.validation.Valid;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import br.ifpr.agenda.dominio.Contato;
 import br.ifpr.agenda.dominio.Usuario;
 import br.ifpr.agenda.repositories.UsuarioRepository;
 
@@ -18,10 +18,13 @@ import java.util.List;
 
 @Controller
 public class UsuarioController {
+
+	private final PasswordEncoder passwordEncoder;
 	
 	private UsuarioRepository usuarioRepository;
 	
-	public UsuarioController (UsuarioRepository usuarioRepository) {
+	public UsuarioController(PasswordEncoder passwordEncoder, UsuarioRepository usuarioRepository) {
+		this.passwordEncoder = passwordEncoder;
 		this.usuarioRepository = usuarioRepository;
 	}
 
@@ -65,7 +68,9 @@ public class UsuarioController {
 		if (bindingResult.hasErrors()) {
 			return "usuarios/editarUsuarios";
 		}
-		
+
+		usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
+
 		usuarioRepository.save(usuario);
 		
 		return "redirect:/usuarios";
